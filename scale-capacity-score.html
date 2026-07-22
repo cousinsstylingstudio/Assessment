@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCALE Program Infrastructure Index&#x2122; &mdash; Cousins Styling Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --forest:#1C3528;--forest-dk:#0F1F16;--forest-md:#1e3326;
+  --gold:#B8860B;--gold-lt:#C9A84C;--gold-pale:rgba(184,134,11,0.13);
+  --linen:#F0EDE4;--parch:#F7F4EE;--stone:#D4C5A9;--ink:#1a1a1a;
+  --sage:#2C5440;--reed:#3A9E7E;--white:#ffffff;
+  --mid:rgba(255,255,255,0.72);--dim:rgba(255,255,255,0.24);--bdr:rgba(255,255,255,0.08);
+}
+html,body{min-height:100vh;background:var(--forest-dk);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--linen);}
+.app{min-height:100vh;display:flex;flex-direction:column;}
+.top-bar{display:flex;justify-content:space-between;align-items:center;padding:16px 44px;border-bottom:1px solid var(--bdr);flex-shrink:0;}
+.top-brand{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--white);}
+.top-product{font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-lt);}
+.screen{display:none;flex:1;}
+.screen.active{display:flex;flex-direction:column;}
+
+/* INTRO */
+#screen-intro{align-items:center;justify-content:center;padding:64px 40px;text-align:center;}
+.intro-eyebrow{font-size:9px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:22px;}
+.intro-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,50px);font-weight:600;color:var(--white);line-height:1.12;max-width:620px;margin-bottom:14px;}
+.intro-headline em{font-style:italic;color:var(--gold-lt);}
+.intro-tension{font-size:13.5px;font-weight:300;color:var(--mid);line-height:1.75;max-width:500px;margin:0 auto 36px;}
+.intro-tension strong{color:var(--linen);font-weight:500;}
+.intro-pillars{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.pillar-chip{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-lt);background:var(--gold-pale);border:1px solid rgba(184,134,11,0.28);border-radius:2px;padding:5px 11px;}
+.intro-meta{display:flex;gap:36px;justify-content:center;margin-bottom:36px;}
+.intro-meta-item{text-align:center;}
+.intro-meta-n{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold-lt);line-height:1;margin-bottom:4px;}
+.intro-meta-l{font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);}
+.btn-primary{background:var(--gold);color:var(--forest-dk);border:none;border-radius:3px;padding:14px 38px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .18s,transform .14s;display:inline-block;text-decoration:none;}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px);}
+.btn-secondary{background:transparent;color:var(--mid);border:1px solid rgba(255,255,255,0.14);border-radius:3px;padding:13px 24px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:border-color .18s,color .18s;text-decoration:none;display:inline-block;}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.32);color:var(--white);}
+.intro-note{font-size:10px;color:var(--dim);margin-top:16px;line-height:1.6;}
+
+/* QUESTION */
+#screen-question{flex-direction:column;}
+.q-progress-wrap{padding:24px 44px 0;flex-shrink:0;}
+.q-progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.q-progress-label{font-size:8.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);}
+.q-progress-frac{font-size:9px;font-weight:500;color:var(--dim);}
+.q-progress-track{height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;}
+.q-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1);}
+.q-pillar-tag{display:inline-block;margin:16px 44px 0;font-size:8.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-lt);background:var(--gold-pale);border:1px solid rgba(184,134,11,0.28);border-radius:2px;padding:4px 10px;}
+.q-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 44px 32px;max-width:740px;margin:0 auto;width:100%;}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);font-weight:600;color:var(--white);line-height:1.32;text-align:center;margin-bottom:8px;}
+.q-sub{font-size:13px;font-weight:400;color:var(--mid);text-align:center;line-height:1.65;margin-bottom:28px;max-width:500px;}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;}
+.q-option{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:4px;padding:15px 18px;cursor:pointer;transition:border-color .16s,background .16s,transform .12s;text-align:left;}
+.q-option:hover{border-color:rgba(184,134,11,0.48);background:rgba(184,134,11,0.06);transform:translateY(-1px);}
+.q-option.selected{border-color:var(--gold);background:var(--gold-pale);}
+.q-option-letter{font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:5px;}
+.q-option-text{font-size:13px;font-weight:400;color:var(--linen);line-height:1.55;}
+.q-option-head{font-size:13px;font-weight:600;color:var(--linen);line-height:1.3;margin-bottom:3px;}
+.q-option-detail{font-size:11px;font-weight:400;color:rgba(255,255,255,0.52);line-height:1.5;}
+.q-option.selected .q-option-head{color:var(--white);}
+.q-option.selected .q-option-detail{color:rgba(255,255,255,0.72);}
+.q-option.selected .q-option-text{color:var(--white);}
+.q-nav{padding:0 44px 28px;display:flex;justify-content:space-between;align-items:center;max-width:740px;margin:0 auto;width:100%;flex-shrink:0;}
+.q-nav-hint{font-size:10px;color:var(--dim);font-style:italic;}
+
+/* RESULTS */
+#screen-results{flex-direction:column;align-items:center;padding:44px 40px 72px;}
+.results-inner{width:100%;max-width:760px;display:flex;flex-direction:column;}
+.score-header{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start;padding-bottom:28px;border-bottom:1px solid var(--bdr);margin-bottom:28px;}
+.score-left{text-align:center;}
+.score-eyebrow{font-size:8.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:8px;}
+.score-numeral{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,9vw,88px);font-weight:700;line-height:.9;margin-bottom:6px;}
+.score-denom{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--dim);vertical-align:super;}
+.score-product-name{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;}
+.score-band-pill{display:inline-block;padding:4px 14px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.score-right{}
+.score-benchmark{background:var(--forest-md);border:1px solid var(--bdr);border-radius:4px;padding:18px 20px;margin-bottom:12px;}
+.benchmark-label{font-size:8.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:12px;}
+.benchmark-rows{display:flex;flex-direction:column;gap:8px;}
+.benchmark-row{display:grid;grid-template-columns:160px 1fr 32px;align-items:center;gap:10px;}
+.bm-label{font-size:11px;font-weight:400;color:var(--mid);}
+.bm-track{height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;}
+.bm-fill{height:100%;border-radius:2px;}
+.bm-val{font-size:11px;font-weight:700;color:var(--linen);text-align:right;}
+.score-right-note{font-size:10px;font-weight:300;color:var(--dim);line-height:1.6;font-style:italic;}
+.diagnosis-block{background:var(--forest);border-radius:4px;padding:24px 28px;margin-bottom:20px;border-left:3px solid var(--gold);}
+.personality-label{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--white);line-height:1.1;margin-bottom:10px;}
+.diagnosis-eyebrow{font-size:8.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px;}
+.diagnosis-headline{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white);line-height:1.35;margin-bottom:10px;}
+.diagnosis-sting{font-size:14px;font-weight:500;color:rgba(255,255,255,0.92);line-height:1.65;margin-bottom:12px;font-style:italic;}
+.diagnosis-body{font-size:12px;font-weight:300;color:rgba(255,255,255,0.86);line-height:1.72;}
+.section-label{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:14px;opacity:0.7;}
+.risks-block{margin-bottom:24px;}
+.risk-rows{display:flex;flex-direction:column;gap:10px;}
+.risk-row{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:16px 20px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;}
+.risk-num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;line-height:1;margin-top:1px;}
+.risk-name{font-size:12px;font-weight:600;color:var(--linen);margin-bottom:4px;}
+.risk-desc{font-size:12px;font-weight:400;color:var(--mid);line-height:1.65;}
+.pillars-block{margin-bottom:24px;}
+.pillars-layout{display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:center;}
+@media(max-width:640px){.pillars-layout{grid-template-columns:1fr;}}
+#radar-canvas{flex-shrink:0;}
+.pillar-rows{display:flex;flex-direction:column;gap:12px;}
+.pillar-row{display:grid;grid-template-columns:190px 1fr 40px;align-items:center;gap:12px;}
+.pillar-name{font-size:12px;font-weight:500;color:var(--linen);text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:6px;}
+.gap-flag{font-size:7.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-lt);background:var(--gold-pale);border:1px solid rgba(184,134,11,0.3);border-radius:2px;padding:2px 6px;white-space:nowrap;}
+.pillar-track{height:7px;background:rgba(255,255,255,0.09);border-radius:3px;overflow:hidden;}
+.pillar-fill{height:100%;border-radius:3px;width:0%;transition:width .7s cubic-bezier(.4,0,.2,1);}
+.pillar-score{font-size:12px;font-weight:700;color:var(--linen);text-align:right;}
+.recs-block{margin-bottom:28px;}
+.recs-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.rec-card{background:var(--forest-md);border:1px solid var(--bdr);border-radius:4px;padding:16px 18px;}
+.rec-horizon{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.rec-action{font-size:13px;font-weight:600;color:var(--linen);line-height:1.4;margin-bottom:5px;}
+.rec-why{font-size:11.5px;font-weight:400;color:var(--mid);line-height:1.6;}
+.cta-block{background:var(--forest);border-radius:4px;padding:28px 32px;}
+.cta-hed{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--white);line-height:1.25;margin-bottom:8px;}
+.cta-sub{font-size:12px;font-weight:300;color:var(--mid);line-height:1.68;margin-bottom:22px;max-width:520px;}
+.cta-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.cta-option{border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;}
+.cta-option-icon{font-size:18px;line-height:1;flex-shrink:0;margin-top:1px;}
+.cta-option-title{font-size:11px;font-weight:600;color:var(--linen);margin-bottom:3px;}
+.cta-option-desc{font-size:10px;font-weight:300;color:var(--mid);line-height:1.5;}
+.cta-action-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.cta-contact{font-size:10px;color:var(--dim);line-height:1.6;}
+.closing-mission{margin-top:32px;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;font-style:italic;color:rgba(255,255,255,0.38);line-height:1.7;text-align:center;max-width:560px;margin-left:auto;margin-right:auto;}
+.retake-wrap{text-align:center;margin-top:16px;}
+.retake-wrap button{background:none;border:none;color:var(--dim);font-size:10.5px;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif;}
+.retake-wrap button:hover{color:var(--mid);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp .38s ease forwards;}
+@media(max-width:640px){
+  .top-bar,.q-progress-wrap,.q-body,.q-nav{padding-left:20px;padding-right:20px;}
+  .q-pillar-tag{margin-left:20px;}
+  .q-options{grid-template-columns:1fr;}
+  #screen-intro{padding:40px 20px;}
+  #screen-results{padding:32px 20px 56px;}
+  .score-header{grid-template-columns:1fr;}
+  .pillar-row{grid-template-columns:120px 1fr 36px;}
+  .recs-grid{grid-template-columns:1fr;}
+  .cta-options{grid-template-columns:1fr;}
+  .benchmark-row{grid-template-columns:120px 1fr 32px;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top-bar">
+  <div class="top-brand">Cousins Styling Studio</div>
+  <div class="top-product">SCALE Program Infrastructure Index&#x2122;</div>
+</div>
+
+<!-- INTRO -->
+<div class="screen active" id="screen-intro">
+  <div class="intro-eyebrow">SCALE Institutional Programs &nbsp;&middot;&nbsp; Infrastructure Diagnostic</div>
+  <h1 class="intro-headline">Programs don't suddenly fail.<br>They quietly become <em>dependent<br>on the wrong things.</em></h1>
+  <p class="intro-tension">This assessment identifies <strong>where that dependency exists</strong> before it becomes visible. Eleven questions. One score. Three things to fix first.</p>
+
+  <div class="intro-meta">
+    <div class="intro-meta-item"><div class="intro-meta-n">11</div><div class="intro-meta-l">Questions</div></div>
+    <div class="intro-meta-item"><div class="intro-meta-n">5</div><div class="intro-meta-l">Pillars Scored</div></div>
+    <div class="intro-meta-item"><div class="intro-meta-n">3 min</div><div class="intro-meta-l">To complete</div></div>
+  </div>
+  <button class="btn-primary" onclick="startAssessment()">Measure Your Consistency Gap&#x2122;</button>
+  <p class="intro-note">No account required. Results appear immediately.</p>
+</div>
+
+<!-- QUESTION -->
+<div class="screen" id="screen-question">
+  <div class="q-progress-wrap">
+    <div class="q-progress-meta">
+      <span class="q-progress-label">SCALE Infrastructure Index&#x2122;</span>
+      <span class="q-progress-frac" id="q-frac">1 of 11</span>
+    </div>
+    <div class="q-progress-track"><div class="q-progress-fill" id="q-progress-fill" style="width:9%"></div></div>
+  </div>
+  <div class="q-pillar-tag" id="q-pillar-tag"></div>
+  <div class="q-body">
+    <div class="q-text" id="q-text"></div>
+    <div class="q-sub" id="q-sub"></div>
+    <div class="q-options" id="q-options"></div>
+  </div>
+  <div class="q-nav">
+    <span class="q-nav-hint" id="q-nav-hint">Select an answer to continue</span>
+    <button class="btn-primary" id="q-next-btn" onclick="nextQuestion()" style="display:none;">Next &rarr;</button>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="screen" id="screen-results">
+<div class="results-inner">
+  <!-- PERSONALITY + DIAGNOSIS FIRST -->
+  <div class="diagnosis-block">
+    <div class="diagnosis-eyebrow">Your Consistency Gap&#x2122; Diagnosis</div>
+    <div class="personality-label" id="res-personality"></div>
+    <div class="diagnosis-headline" id="res-diag-hed"></div>
+    <div class="diagnosis-sting" id="res-sting"></div>
+    <div class="exec-summary-wrap">
+      <span class="exec-summary-label">Executive Summary</span>
+      <span class="exec-summary-text" id="res-exec-summary"></span>
+    </div>
+    <div class="diagnosis-body" id="res-diag-body"></div>
+  </div>
+  <!-- SCORE AS SUPPORTING EVIDENCE -->
+  <div class="score-header">
+    <div class="score-left">
+      <div class="score-eyebrow">Your Infrastructure Index Score</div>
+      <div class="score-numeral" id="res-numeral">--<span class="score-denom">/100</span></div>
+      <div class="score-product-name">SCALE Program Infrastructure Index&#x2122;</div>
+      <span class="score-band-pill" id="res-band-pill"></span>
+    </div>
+    <div class="score-right">
+      <div class="score-benchmark">
+        <div class="benchmark-label">How You Compare</div>
+        <div class="benchmark-rows" id="benchmark-rows"></div>
+      </div>
+      <div class="score-right-note">Illustrative reference bands based on the SCALE methodology.</div>
+    </div>
+  </div>
+  <div class="risks-block">
+    <div class="section-label">Your Three Biggest Risks &mdash; Based on your responses</div>
+    <div class="risk-rows" id="res-risks"></div>
+  </div>
+  <div class="pillars-block">
+    <div class="section-label">Five Pillars of Program Infrastructure&#x2122; &mdash; Where the gap is widest</div>
+    <div class="pillars-layout">
+      <canvas id="radar-canvas" width="260" height="260"></canvas>
+      <div class="pillar-rows" id="res-pillars"></div>
+    </div>
+  </div>
+  <div class="recs-block">
+    <div class="section-label">Recommendations &mdash; Specific to your lowest pillar</div>
+    <div class="recs-grid" id="res-recs"></div>
+  </div>
+  <div class="cta-block">
+    <div class="cta-hed" id="res-cta-hed">Your results are ready to review.</div>
+    <div class="cta-sub">A 20-minute Capacity Review walks through your three biggest risks, what they are costing your organization in practice, and what closing them looks like.</div>
+    <div class="cta-options">
+      <div class="cta-option">
+        <div class="cta-option-icon">&#x1F4CA;</div>
+        <div><div class="cta-option-title">Get Your Executive Report</div><div class="cta-option-desc">Your score, diagnosis, and three risks in one page. Forward it to your board.</div></div>
+      </div>
+      <div class="cta-option">
+        <div class="cta-option-icon">&#x1F4CB;</div>
+        <div><div class="cta-option-title">Walk Through My Results</div><div class="cta-option-desc">A structured 20-minute review of your score with a SCALE specialist. No pitch.</div></div>
+      </div>
+    </div>
+    <div class="cta-action-row">
+      <a href="mailto:info@bookcousins.com?subject=SCALE Infrastructure Index Results" class="btn-primary">Email My Results</a>
+      <a href="tel:9516534477" class="btn-secondary">Call (951) 653-4477</a>
+      <div class="cta-contact">info@bookcousins.com &nbsp;&middot;&nbsp; bookcousins.com</div>
+    </div>
+  </div>
+  <div class="closing-mission">The goal is not a perfect score. It is building programs that continue delivering value regardless of staffing changes, competing priorities, or organizational growth.</div>
+  <div class="retake-wrap"><button onclick="retake()">Retake the assessment</button></div>
+</div>
+</div>
+
+</div>
+<script>
+var PILLARS=[
+  {id:'reliability',label:'Reliability',riskDesc:'Too much depends on specific employees. One resignation and the program stops before anyone notices.',
+   recs:{now:{a:'Map every recurring program to its single biggest point of failure',w:'You cannot fix what you have not named.'},q90:{a:'Document the full operational workflow for your top two recurring programs',w:'Programs that can be handed off are programs that survive.'},long:{a:'Implement a managed infrastructure model for any program core to your mission',w:'Systems outlast people. Effort does not.'}}},
+  {id:'ownership',label:'Ownership',riskDesc:'No single person owns the outcome. Problems get discovered late and resolved slowly.',
+   recs:{now:{a:'Name a single owner for each recurring program, in writing',w:'Shared responsibility is no responsibility.'},q90:{a:'Separate the coordinator role from the delivery role in your program structure',w:'Two jobs in one role means both get done worse.'},long:{a:'Transition to a dedicated coordinator model with one contact who owns scheduling, staffing, and communication',w:'One coordinator. One source of truth. No gaps.'}}},
+  {id:'professional',label:'Continuity',riskDesc:'Participants cannot develop consistent expectations when the team changes every cycle. Familiarity is the foundation of trust.',
+   recs:{now:{a:'Create a simple participant profile for each person your programs serve',w:'Arrive knowing. Not discovering.'},q90:{a:'Establish a standing assignment system so the same professionals are deployed each cycle',w:'Familiarity is the foundation of trust.'},long:{a:'Build participant briefing into your program operating procedure rather than treating it as optional preparation',w:'Consistency is what they know when they arrive.'}}},
+  {id:'documentation',label:'Evidence',riskDesc:'When a funder asks for proof, you should retrieve it, not reconstruct it.',
+   recs:{now:{a:'Identify the three questions your board, funders, or oversight agencies ask most about participant programs',w:'Start with the questions you have already been asked.'},q90:{a:'Establish a same-day documentation protocol after every program visit or session',w:'Same-day documentation is accurate. Everything else is a reconstruction.'},long:{a:'Build a quarterly leadership summary into your program operating model rather than producing it on request',w:'Have the answer before anyone asks for it.'}}},
+  {id:'execution',label:'Execution',riskDesc:'A schedule that moves is not a schedule. Programs that compete for calendar space eventually lose.',
+   recs:{now:{a:'Hold your program dates on a protected calendar from the first planning session',w:'Held dates get protected. Flexible dates get moved.'},q90:{a:'Create a same-cycle rescheduling policy so missed visits are recovered within the same program period',w:'Missed cycles without a recovery policy simply disappear.'},long:{a:'Move from ad hoc scheduling to a reserved recurring calendar that participants and families can plan around',w:'Predictable programs become culture. Flexible programs become optional.'}}}
+];
+
+var QUESTIONS=[
+  {p:'reliability',t:'What happens to a recurring program when the staff member who coordinates it takes extended leave?',s:'Think about any program that runs on a regular schedule.',o:[
+    {h:'It stops.',d:'Program pauses until that person returns or someone learns the system from scratch.',v:0},
+    {h:'It wobbles.',d:'Someone steps in but quality and consistency drop noticeably.',v:1},
+    {h:'Extra effort required.',d:'Informal backup coverage exists but takes significant work each time.',v:2},
+    {h:'No disruption.',d:'The system runs without that person. No single point of failure.',v:4}]},
+  {p:'reliability',t:'How much of your program knowledge lives only in someone\'s head?',s:'Vendor contacts, participant preferences, scheduling logic, quality standards.',o:[
+    {h:'Almost all of it.',d:'If one or two people left, we would rebuild from scratch.',v:0},
+    {h:'Most of it.',d:'Some documentation exists but it is incomplete and rarely updated.',v:1},
+    {h:'Some of it.',d:'Key information is documented but there are gaps.',v:2},
+    {h:'Very little.',d:'Documentation is thorough enough that anyone could step in and run it.',v:4}]},
+  {p:'ownership',t:'Who is accountable if a recurring program falls through?',s:'Not who helps coordinate, but who is responsible when something goes wrong.',o:[
+    {h:'Nobody specific.',d:'It is a shared responsibility across the team.',v:0},
+    {h:'Whoever has capacity.',d:'It rotates depending on who is available that week or month.',v:1},
+    {h:'One person, stretched thin.',d:'A primary contact exists but it is not their only job.',v:2},
+    {h:'One dedicated coordinator.',d:'Owns all scheduling, staffing, and communication for recurring programs.',v:4}]},
+  {p:'ownership',t:'When a family calls with a question, how quickly does a clear answer reach them?',s:'Think about the path from an incoming question to a confident response.',o:[
+    {h:'Several days, multiple handoffs.',d:'Might take days before reaching someone who can actually answer it.',v:0},
+    {h:'Escalated to whoever manages it.',d:'The right person changes depending on the situation.',v:1},
+    {h:'One contact, but slow.',d:'A contact exists but sometimes needs to track down answers from multiple sources.',v:2},
+    {h:'One person, one business day.',d:'One coordinator handles all family communication, every time.',v:4}]},
+  {p:'professional',t:'How often do the professionals delivering your programs change from visit to visit?',s:'Any licensed professional or specialist working directly with your participants.',o:[
+    {h:'Frequently.',d:'We work with whoever is available. Familiarity with participants varies a lot.',v:0},
+    {h:'Sometimes.',d:'We try to be consistent but coverage gaps mean we often send someone new.',v:1},
+    {h:'Occasionally.',d:'Core team is consistent but we sometimes need unfamiliar substitutes.',v:2},
+    {h:'Rarely.',d:'The same licensed professionals are assigned to our program each cycle.',v:4}]},
+  {p:'professional',t:'Before a professional arrives, how much do they know about each participant\'s individual needs?',s:'Mobility, cognitive or sensory needs, past preferences, specific protocols.',o:[
+    {h:'Very little.',d:'They learn about participants when they arrive.',v:0},
+    {h:'General population info.',d:'They know the population but not individual participant detail.',v:1},
+    {h:'Some basics, inconsistently.',d:'Some information is shared in advance but preparation varies.',v:2},
+    {h:'Full briefing, every visit.',d:'Individual needs are planned for in advance, not discovered on arrival.',v:4}]},
+  {p:'documentation',t:'If your largest funder asked for twelve months of program evidence tomorrow, could you produce it immediately?',s:'Attendance records, service documentation, outcome summaries.',o:[
+    {h:'No.',d:'We would piece it together from multiple sources over several days.',v:0},
+    {h:'Partially.',d:'Records exist but are inconsistent and require significant time to compile.',v:1},
+    {h:'Mostly.',d:'Records exist but are not organized in a way that is easy to share quickly.',v:2},
+    {h:'Immediately.',d:'Organized documentation ready to share in a professional format on request.',v:4}]},
+  {p:'documentation',t:'After a program visit, how is participant information recorded and who receives it?',s:'Think about the process from service delivery to documentation in your system.',o:[
+    {h:'Often not recorded.',d:'If it is, it happens informally and is not consistently shared.',v:0},
+    {h:'Depends on someone remembering.',d:'Someone records it when they think of it.',v:1},
+    {h:'Process exists, inconsistently.',d:'Documentation sometimes arrives late or incomplete.',v:2},
+    {h:'Same day, every cycle.',d:'Delivered to designated contact within 48 hours after every visit.',v:4}]},
+  {p:'execution',t:'How are recurring program dates set, confirmed, and protected?',s:'How program dates get established and held against competing priorities.',o:[
+    {h:'Ad hoc.',d:'Each occurrence scheduled individually. Dates frequently moved.',v:0},
+    {h:'Planned but unprotected.',d:'We plan ahead but the schedule shifts based on competing demands.',v:1},
+    {h:'General schedule, renegotiated.',d:'Individual cycles require confirmation or adjustment each time.',v:2},
+    {h:'Reserved fixed calendar.',d:'Dates held from the start. Rescheduling is the rare exception.',v:4}]},
+  {p:'execution',t:'If your top recurring program did not run for a full month, who would notice?',s:'This measures how embedded the program is in your organization\'s rhythm.',o:[
+    {h:'Probably no one.',d:'Attendance is inconsistent enough that a missed month would go unnoticed.',v:0},
+    {h:'A few people, no urgency.',d:'Some would notice but leadership would not feel urgency to restore it.',v:1},
+    {h:'Families would mention it.',d:'But urgency to resolve it would depend on who brought it up.',v:2},
+    {h:'Everyone would notice immediately.',d:'Participants expect it every cycle. A missed month is a visible gap.',v:4}]},
+  {p:'reliability',t:'If your Executive Director toured every recurring program unannounced tomorrow, what would they find?',s:'What actually happens versus what is reported.',o:[
+    {h:'Not confident.',d:'Several programs likely not running or looking different from what we describe.',v:0},
+    {h:'Somewhat uncertain.',d:'A few programs might have gaps we would not want visible.',v:1},
+    {h:'Mostly confident.',d:'One or two programs I would be nervous about.',v:2},
+    {h:'Fully confident.',d:'Every program running exactly as designed, regardless of who is watching.',v:4}]}
+];
+
+var BENCHMARKS=[
+  {label:'Your organization',pct:null,color:null},
+  {label:'Organizations like yours',pct:52,color:'#C9A84C'},
+  {label:'Top-performing orgs',pct:84,color:'#3A9E7E'}
+];
+
+var currentQ=0,answers=[];
+
+function startAssessment(){
+  currentQ=0;answers=new Array(QUESTIONS.length).fill(null);
+  showScreen('screen-question');renderQuestion();
+}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function renderQuestion(){
+  var q=QUESTIONS[currentQ];
+  var pil=PILLARS.find(function(p){return p.id===q.p;});
+  document.getElementById('q-frac').textContent=(currentQ+1)+' of '+QUESTIONS.length;
+  document.getElementById('q-progress-fill').style.width=(((currentQ+1)/QUESTIONS.length)*100)+'%';
+  document.getElementById('q-pillar-tag').textContent='Pillar: '+pil.label;
+  document.getElementById('q-nav-hint').textContent='Select an answer to continue';
+  document.getElementById('q-next-btn').style.display='none';
+  var tEl=document.getElementById('q-text');
+  tEl.textContent=q.t;tEl.classList.remove('fade-up');void tEl.offsetWidth;tEl.classList.add('fade-up');
+  document.getElementById('q-sub').textContent=q.s;
+  var optsEl=document.getElementById('q-options');optsEl.innerHTML='';
+  var letters=['A','B','C','D'];
+  q.o.forEach(function(opt,i){
+    var div=document.createElement('div');
+    div.className='q-option fade-up';div.style.animationDelay=(i*0.06)+'s';
+    div.innerHTML='<div class="q-option-letter">'+letters[i]+'</div><div class="q-option-head">'+(opt.h||opt.t)+'</div>'+(opt.d?'<div class="q-option-detail">'+opt.d+'</div>':'');
+    div.addEventListener('click',function(){
+      document.querySelectorAll('.q-option').forEach(function(o){o.classList.remove('selected');});
+      div.classList.add('selected');answers[currentQ]=opt.v;
+      document.getElementById('q-next-btn').style.display='block';
+      document.getElementById('q-nav-hint').textContent=currentQ<QUESTIONS.length-1?'Good. Move to the next question.':'Ready to see your results.';
+    });
+    optsEl.appendChild(div);
+  });
+}
+function nextQuestion(){
+  if(answers[currentQ]===null)return;
+  currentQ++;
+  if(currentQ<QUESTIONS.length){renderQuestion();}else{buildResults();}
+}
+function drawRadar(pillars,pct,accent){
+  var c=document.getElementById('radar-canvas');
+  if(!c)return;
+  var ctx=c.getContext('2d');
+  var W=c.width,H=c.height,cx=W/2,cy=H/2,R=cx-36;
+  ctx.clearRect(0,0,W,H);
+  var n=pillars.length;
+  function pt(i,r){
+    var a=(Math.PI*2/n)*i - Math.PI/2;
+    return [cx+r*Math.cos(a), cy+r*Math.sin(a)];
+  }
+  // Background rings
+  [0.25,0.5,0.75,1].forEach(function(f){
+    ctx.beginPath();
+    for(var i=0;i<n;i++){var p=pt(i,R*f);i===0?ctx.moveTo(p[0],p[1]):ctx.lineTo(p[0],p[1]);}
+    ctx.closePath();
+    ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;ctx.stroke();
+  });
+  // Spokes
+  for(var i=0;i<n;i++){
+    var p=pt(i,R);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p[0],p[1]);
+    ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;ctx.stroke();
+  }
+  // Data polygon
+  ctx.beginPath();
+  pillars.forEach(function(p,i){
+    var v=(pct[p.id]||0)/100;
+    var xy=pt(i,R*v);
+    i===0?ctx.moveTo(xy[0],xy[1]):ctx.lineTo(xy[0],xy[1]);
+  });
+  ctx.closePath();
+  ctx.fillStyle=accent.replace(')',',0.18)').replace('rgb','rgba');
+  // Parse accent color for fill
+  if(accent.indexOf('#')===0){
+    var hex=accent.slice(1);
+    var r=parseInt(hex.slice(0,2),16),g=parseInt(hex.slice(2,4),16),b=parseInt(hex.slice(4,6),16);
+    ctx.fillStyle='rgba('+r+','+g+','+b+',0.18)';
+    ctx.strokeStyle='rgba('+r+','+g+','+b+',0.85)';
+  }else{
+    ctx.fillStyle='rgba(184,134,11,0.18)';ctx.strokeStyle='rgba(184,134,11,0.85)';
+  }
+  ctx.fill();ctx.lineWidth=2;ctx.stroke();
+  // Dots + labels
+  pillars.forEach(function(p,i){
+    var v=(pct[p.id]||0)/100;
+    var xy=pt(i,R*v);
+    ctx.beginPath();ctx.arc(xy[0],xy[1],4,0,Math.PI*2);
+    ctx.fillStyle=accent;ctx.fill();
+    var lxy=pt(i,R+20);
+    ctx.fillStyle='rgba(255,255,255,0.65)';
+    ctx.font='600 10px DM Sans,sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(p.label,lxy[0],lxy[1]);
+  });
+}
+function buildResults(){
+  var raw={},counts={};
+  PILLARS.forEach(function(p){raw[p.id]=0;counts[p.id]=0;});
+  QUESTIONS.forEach(function(q,i){if(answers[i]!==null){raw[q.p]+=answers[i];counts[q.p]++;}});
+  var pct={};
+  PILLARS.forEach(function(p){var m=counts[p.id]*4;pct[p.id]=m>0?Math.round((raw[p.id]/m)*100):0;});
+  var totalRaw=0,totalMax=0;
+  QUESTIONS.forEach(function(q,i){if(answers[i]!==null){totalRaw+=answers[i];totalMax+=4;}});
+  var score=Math.round((totalRaw/totalMax)*100);
+  var sorted=PILLARS.slice().sort(function(a,b){return pct[a.id]-pct[b.id];});
+  var band,bandBg,bandColor;
+  var personality;
+  if(score>=80){band='Operationally Mature';personality='Strong. At risk of scale.';bandBg='rgba(58,158,126,0.18)';bandColor='#3A9E7E';}
+  else if(score>=60){band='Stable but Fragile';personality='Functioning. Not built to last.';bandBg='rgba(184,134,11,0.18)';bandColor='#C9A84C';}
+  else if(score>=40){band='Infrastructure at Risk';personality='Running on effort. Not on systems.';bandBg='rgba(180,100,40,0.18)';bandColor='#D4874A';}
+  else{band='High Vulnerability';personality='Reactive. Programs stop when people stop.';bandBg='rgba(160,50,50,0.18)';bandColor='#C05050';}
+  var numEl=document.getElementById('res-numeral');
+  numEl.innerHTML=score+'<span class="score-denom">/100</span>';numEl.style.color=bandColor;
+  var bp=document.getElementById('res-band-pill');
+  bp.textContent=band;bp.style.background=bandBg;bp.style.color=bandColor;bp.style.border='1px solid '+bandColor;
+  var persEl=document.getElementById('res-personality');
+  if(persEl){persEl.textContent=personality;persEl.style.color=bandColor;}
+  var stingEl=document.getElementById('res-sting');
+  if(stingEl){stingEl.textContent=sting;}
+  BENCHMARKS[0].pct=score;BENCHMARKS[0].color=bandColor;
+  var bmEl=document.getElementById('benchmark-rows');bmEl.innerHTML='';
+  BENCHMARKS.forEach(function(bm){
+    var row=document.createElement('div');row.className='benchmark-row';
+    row.innerHTML='<div class="bm-label">'+bm.label+'</div><div class="bm-track"><div class="bm-fill" style="background:'+bm.color+';width:'+bm.pct+'%"></div></div><div class="bm-val">'+bm.pct+'</div>';
+    bmEl.appendChild(row);
+  });
+  var worst=sorted[0];
+  var STINGS={
+    reliability:'Right now, one resignation would interrupt more than one recurring program.',
+    ownership:'When something falls through, finding out who is responsible takes longer than fixing it.',
+    professional:'Your participants experience your staffing changes whether they know the reason or not.',
+    documentation:'If a funder asked for proof tomorrow, you would spend days rebuilding what should already exist.',
+    execution:'Every time one employee takes a vacation, your programs have to relearn how to operate.'
+  };
+  var sting=STINGS[worst.id]||'';
+  var diagHed,diagBody,ctaHed;
+  if(score>=80){
+    diagHed='Your infrastructure is solid. Growth will test it.';
+    diagBody='The Consistency Gap is narrow. The risk is what happens when you grow. Systems that work at current scale often break at the next one.';
+    ctaHed="Let\u2019s talk about what your infrastructure looks like at the next level.";
+  }else if(score>=60){
+    diagHed='Your programs are running. Your infrastructure is not.';
+    diagBody='Programs are running. But specific pillars depend on people, not systems. The most common version: everything looks fine until a key person leaves.';
+    ctaHed="Let\u2019s identify which gaps are most likely to surface first.";
+  }else if(score>=40){
+    diagHed='When the effort pauses, the programs pause.';
+    diagBody='Your programs run on effort. Effort is finite. The Consistency Gap is widest in '+worst.label+'. When the effort pauses, the program pauses.';
+    ctaHed="Let\u2019s talk about what this is actually costing your organization.";
+  }else{
+    diagHed='Programs run when someone champions them. When that person is gone, so is the program.';
+    diagBody='Multiple programs depend on specific individuals and informal coordination. The gap between what your organization intends to deliver and what participants can count on is wider than it should be.';
+    ctaHed="Let\u2019s talk about what closing this gap actually looks like.";
+  }
+  document.getElementById('res-diag-hed').textContent=diagHed;
+  document.getElementById('res-diag-body').textContent=diagBody;
+  document.getElementById('res-cta-hed').textContent=ctaHed;
+  var EXEC_SUMMARIES={
+    reliability:'Your organization is delivering programs, but they depend on specific people rather than repeatable systems. Strengthening Reliability before growth or turnover exposes this gap is the highest-return improvement available to you.',
+    ownership:'Your programs are running, but accountability is distributed rather than assigned. Establishing clear Ownership now will prevent the most common failure mode: finding out who is responsible after something goes wrong.',
+    professional:'Your programs deliver value, but participant experience varies depending on who shows up. Strengthening Continuity by assigning consistent professionals and briefing them in advance is the clearest path to raising program quality.',
+    documentation:'Your programs are operating, but your ability to prove it is limited. Strengthening Evidence now means you will have answers before funders, boards, or oversight agencies ask for them.',
+    execution:'Your programs are running, but the schedule is more flexible than it should be. Protecting Execution by holding fixed dates from the start turns recurring programs into reliable institutional commitments.'
+  };
+  var execSumEl=document.getElementById('res-exec-summary');
+  if(execSumEl){execSumEl.textContent=EXEC_SUMMARIES[worst.id]||'';}
+  var rColors=[bandColor,'#C9A84C','rgba(255,255,255,0.35)'];
+  var risksEl=document.getElementById('res-risks');risksEl.innerHTML='';
+  [sorted[0],sorted[1],sorted[2]].forEach(function(p,i){
+    var row=document.createElement('div');row.className='risk-row fade-up';
+    row.innerHTML='<div class="risk-num" style="color:'+rColors[i]+'">'+(i+1)+'</div><div><div class="risk-name">'+p.label+'</div><div class="risk-desc">'+p.riskDesc+'</div></div>';
+    risksEl.appendChild(row);
+  });
+  var pillarEl=document.getElementById('res-pillars');pillarEl.innerHTML='';
+  sorted.forEach(function(p,i){
+    var v=pct[p.id];
+    var fc=v>=75?'#3A9E7E':v>=50?'#C9A84C':v>=25?'#D4874A':'#C05050';
+    var row=document.createElement('div');row.className='pillar-row';
+    row.innerHTML='<div class="pillar-name">'+p.label+(i===0?' <span class="gap-flag">Widest Gap</span>':'')+'</div><div class="pillar-track"><div class="pillar-fill" style="background:'+fc+'" data-pct="'+v+'"></div></div><div class="pillar-score">'+v+'</div>';
+    pillarEl.appendChild(row);
+  });
+  setTimeout(function(){
+    document.querySelectorAll('.pillar-fill').forEach(function(b){b.style.width=b.getAttribute('data-pct')+'%';});
+    drawRadar(PILLARS,pct,bandColor);
+  },200);
+  var rec=worst.recs;
+  var recsEl=document.getElementById('res-recs');recsEl.innerHTML='';
+  [{h:'Immediate',d:rec.now},{h:'Next 90 Days',d:rec.q90},{h:'Long-Term',d:rec.long}].forEach(function(r){
+    var c=document.createElement('div');c.className='rec-card';
+    c.innerHTML='<div class="rec-horizon">'+r.h+'</div><div class="rec-action">'+r.d.a+'</div><div class="rec-why">'+r.d.w+'</div>';
+    recsEl.appendChild(c);
+  });
+  showScreen('screen-results');
+}
+function retake(){currentQ=0;answers=new Array(QUESTIONS.length).fill(null);showScreen('screen-intro');}
+</script>
+</body>
+</html>
